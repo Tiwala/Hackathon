@@ -13,19 +13,14 @@ document.body.append(renderer.domElement);
 let length = document.getElementById('length');
 let width = document.getElementById('width');
 let height = document.getElementById('height');
-
-let octaLength = document.getElementById('lengthTwo');
-let octaWidth = document.getElementById('widthTwo');
-let octaHeight = document.getElementById('heightTwo');
+// let sliders = document.querySelectorAll('.slider')
+// let outputLength = document.getElementById('outputLength')
+// let outputWidth = document.getElementById('outputWidth')
+// let outputHeight = document.getElementById('outputHeight')
 
 let outputLength = 0;
 let outputWidth = 0;
 let outputHeight = 0;
-
-let outputLengthTwo = 0;
-let outputWidthTwo = 2;
-let outputHeightTwo = 0;
-
 
 let updateLength = () => {
     outputLength = length.value;
@@ -39,62 +34,31 @@ let updateHeight = () => {
     outputHeight = height.value;
 }
 
-let updateLengthTwo = () => {
-    outputLengthTwo = octaLength.value;
-}
-
-let updateWidthTwo = () => {
-    outputWidthTwo = octaWidth.value;
-}
-
-let updateHeightTwo = () => {
-    outputHeightTwo = octaHeight.value;
-}
-
 length.addEventListener('input', updateLength);
 width.addEventListener('input', updateWidth);
 height.addEventListener('input', updateHeight);
-octaLength.addEventListener('input', updateLengthTwo);
-octaWidth.addEventListener('input', updateWidthTwo);
-octaHeight.addEventListener('input', updateHeightTwo);
-
 updateLength();
 updateWidth();
 updateHeight();
-updateLengthTwo();
-updateWidthTwo();
-updateHeightTwo();
 
 // Creating a cube
 const texture = new THREE.TextureLoader().load('lavatile.jpeg')
-const geometry = new THREE.BoxGeometry(1, 1, 1);
+let geometry = new THREE.BoxGeometry(outputLength, outputWidth, outputHeight);
 const material = new THREE.MeshBasicMaterial({map: texture});
 const cube = new THREE.Mesh(geometry, material);
-cube.position.x = -4
-cube.position.z = 0
 scene.add(cube);
 
-// Creating an Octahedron
-const octaGeometry = new THREE.OctahedronGeometry(1, 1);
-const octaMaterial = new THREE.MeshBasicMaterial({map: texture});
-const octa = new THREE.Mesh(octaGeometry, octaMaterial);
-octa.position.x = 0;
-octa.position.z = 0;
-scene.add(octa);
 
 
-camera.position.z = 5;
+
+camera.position.z = 7;
 
 
 function animate() {
-    cube.rotation.x += 0.05;
-    cube.rotation.y += 0.05;
-    cube.scale.set(outputLength, outputWidth, outputHeight);
-    octa.rotation.x += 0.05;
-    octa.rotation.y += 0.05;
-    octa.scale.set(outputLengthTwo, outputWidthTwo, outputHeightTwo);
-    renderer.render(scene, camera);
     requestAnimationFrame(animate);
+    cube.rotation.x += 0.05
+    cube.rotation.y += 0.05
+    renderer.render(scene, camera);
 };
 
 animate();
