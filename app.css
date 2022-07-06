@@ -27,3 +27,7 @@ canvas {
     left: 37%;
 }
 
+.slideContainerThree {
+    position: absolute;
+    left: 70%
+}
